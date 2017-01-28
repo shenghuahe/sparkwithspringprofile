@@ -7,11 +7,23 @@
     <bean id="sparkSessionFactory"
           class="com.solutionresort.boilerplate.infrastructure.spark.SparkSessionFactory"
           autowire="constructor">
+        <constructor-arg name="appName" value="${app.name}"/>
+        <constructor-arg name="masterUrl" value="${master.url}"/>
     </bean>
 
     <bean id="sparkSession"
           factory-bean="sparkSessionFactory"
           factory-method="create">
+    </bean>
+
+    <bean class="com.solutionresort.boilerplate.infrastructure.spark.FileToRddMapper"
+          autowire="constructor">
+        <constructor-arg name="inputLocation" value="${input.location}"/>
+    </bean>
+
+    <bean id="wordCounter"
+          class="com.solutionresort.boilerplate.infrastructure.WordCounter"
+          autowire="constructor">
     </bean>
 
 </beans>
